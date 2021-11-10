@@ -21,6 +21,7 @@ public class CustomerDetailsService {
     }
 
     public CustomerDetails postCustomer(CustomerDetails customerDetails) {
+        customerDetails.setQuotedAmount(QuoteCalculator.calculateInsuranceQuote(customerDetails));
         return customerDetailsRepository.save(customerDetails);
     }
 

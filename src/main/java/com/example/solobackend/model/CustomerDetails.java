@@ -25,6 +25,7 @@ public class CustomerDetails {
     private String regStateUse;
     private String vehCurrentValue;
     private String vehDateRegistered;
+    private String quotedAmount;
 
     // Constructors
     public CustomerDetails() {
@@ -50,6 +51,7 @@ public class CustomerDetails {
         this.regStateUse = regStateUse;
         this.vehCurrentValue = vehCurrentValue;
         this.vehDateRegistered = vehDateRegistered;
+        this.quotedAmount = null;
     }
 
     public Long getId() {
@@ -178,5 +180,13 @@ public class CustomerDetails {
 
     public void setVehDateRegistered(String vehDateRegistered) {
         this.vehDateRegistered = vehDateRegistered;
+    }
+
+    public String getQuotedAmount() {
+        return quotedAmount;
+    }
+
+    public void setQuotedAmount(String quotedAmount) {
+        this.quotedAmount = quotedAmount;
     }
 }

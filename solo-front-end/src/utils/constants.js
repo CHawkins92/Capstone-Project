@@ -1,3 +1,3 @@
-const SERVER_URL = 'http://capstone-project.allstatejenkins6.conygre.com/';
+const SERVER_URL = 'http://demo-react-spring-demo-react-spring.allstatejenkins6.conygre.com/';
 
 export default SERVER_URL;

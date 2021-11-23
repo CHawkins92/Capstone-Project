@@ -14,6 +14,7 @@ import * as ErrorMsgConstants from "./ErrorMessages.js";
 import * as DropDownOptions from "./DropdownOptions";
 import * as FieldValidator from "./FormFieldsValidator";
 import logo from "../../assets/images/allstate_logo.jpg";
+import SERVER_URL from "../../utils/constants.js";
 
 function Create() {
   // Properties mapping to form fields
@@ -154,7 +155,8 @@ function Create() {
       vehDateRegistered,
     };
 
-    const endpointURL = "http://localhost:8080/customerDetails";
+    //const endpointURL = "http://localhost:8080/customerDetails";
+    const endpointURL = `${SERVER_URL}/customerDetails`;
 
     axios
       .post(endpointURL, formData)

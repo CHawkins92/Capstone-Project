@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import logo from "../../assets/images/allstate_logo.jpg";
 import * as FieldValidator from "./FormFieldsValidator";
+import SERVER_URL from "../../utils/constants.js";
 
 function Admin() {
   const [idToGet, setIdToGet] = useState(null);
@@ -27,7 +28,8 @@ function Admin() {
   ==============================
   */
   function callAPIWithAxiosGET(idToGet) {
-    const endpointURL = "http://localhost:8080/customerDetails?id=" + idToGet;
+    //const endpointURL = "http://localhost:8080/customerDetails?id=" + idToGet;
+    const endpointURL = `${SERVER_URL}/customerDetails?id=${idToGet}`;
 
     if(!idToGet){
       setCustomerData(null)
@@ -51,8 +53,8 @@ function Admin() {
   }
 
   function callAPIWithAxiosDELETE() {
-    const endpointURL =
-      "http://localhost:8080/customerDetails?id=" + idToDelete;
+    //const endpointURL = "http://localhost:8080/customerDetails?id=" + idToDelete;
+    const endpointURL = `${SERVER_URL}/customerDetails?id=${idToDelete}`;
 
     if(!idToDelete){
       return
@@ -76,8 +78,9 @@ function Admin() {
       telephoneNumber,
     };
 
-    const endpointURL = "http://localhost:8080/customerDetails?id=" + idToUpdate +
-                        "&newTelephoneNumber=" + telephoneNumber;
+    //const endpointURL = "http://localhost:8080/customerDetails?id=" + idToUpdate +
+    //                    "&newTelephoneNumber=" + telephoneNumber;
+    const endpointURL = `${SERVER_URL}/customerDetails?id=${idToUpdate}&newTelephoneNumber=${telephoneNumber}`;
 
     if(!idToUpdate){
       return

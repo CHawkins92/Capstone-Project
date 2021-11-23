@@ -1,0 +1,3 @@
+[submodule "solo-front-end"]
+	path = solo-front-end
+	url = https://github.com/CHawkins92/solo-front-end

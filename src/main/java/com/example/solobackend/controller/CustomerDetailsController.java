@@ -4,6 +4,7 @@ import com.example.solobackend.model.CustomerDetails;
 import com.example.solobackend.service.CustomerDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -14,6 +15,11 @@ public class CustomerDetailsController {
 
     public CustomerDetailsController(CustomerDetailsService service) {
         this.service = service;
+    }
+
+    @GetMapping("/customerDetailsAll")
+    List <CustomerDetails> getAllCustomers(){
+        return service.getAll();
     }
 
     @GetMapping("/customerDetails")

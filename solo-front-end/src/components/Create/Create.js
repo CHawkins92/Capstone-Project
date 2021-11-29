@@ -8,6 +8,7 @@ import {
   Image,
   Icon,
   Header,
+  Modal
 } from "semantic-ui-react";
 import axios from "axios";
 import * as ErrorMsgConstants from "./ErrorMessages.js";
@@ -33,6 +34,9 @@ function Create() {
   const [regStateUse, setRegStateUse] = useState("No");
   const [vehCurrentValue, setVehCurrentValue] = useState("");
   const [vehDateRegistered, setVehDateRegistered] = useState("");
+  const [quoteAmount, setQuoteAmount] = useState("");
+
+  const [open, setOpen] = useState(false) // controls modal state
 
   // Fields that require validation
   const [fieldsRequiringValidation, setFieldsRequiringValidation] = useState({
@@ -160,8 +164,10 @@ function Create() {
 
     axios
       .post(endpointURL, formData)
-      .then((response) => console.log(response.data))
+      .then((response) => setQuoteAmount(response.data.quotedAmount))
       .catch((err) => console.log(err));
+
+    setOpen(true); // open modal
   };
 
 
@@ -217,6 +223,10 @@ function Create() {
     }
   };
 
+  const handleCloseModal = () => {
+    setOpen(false)
+    window.location.reload()
+  }
 
 
   return (
@@ -444,6 +454,29 @@ function Create() {
           </Button>
         </Segment>
       </Form>
+
+      <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+      >
+        <Modal.Content>
+          <Header>Hi, {firstName} {lastName}!</Header>
+          <p>Buy you insurance with us for £{quoteAmount}</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='black' onClick={() => handleCloseModal()}>
+            No thanks
+          </Button>
+          <Button
+              content="Buy insurance"
+              labelPosition='right'
+              icon='checkmark'
+              onClick={() => handleCloseModal()}
+              positive
+          />
+        </Modal.Actions>
+      </Modal>
     </div>
   );
 }

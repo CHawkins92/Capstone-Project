@@ -9,6 +9,7 @@ import {
   Icon,
   Header,
   Image,
+  Modal
 } from "semantic-ui-react";
 import axios from "axios";
 import logo from "../../assets/images/allstate_logo.jpg";
@@ -21,6 +22,11 @@ function Admin() {
   const [idToUpdate, setIdToUpdate] = useState(null);
   const [telephoneNumber, setTelephoneNumber] = useState(null);
   const [customerData, setCustomerData] = useState(null);
+  const [customerDataForDeletion, setCustomerDataForDeletion] = useState(null);
+  const [customerDataForUpdate, setCustomerDataForUpdate] = useState(null);
+
+  const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false) // controls modal state
+  const [openConfirmUpdateModal, setOpenConfirmUpdateModal] = useState(false)
 
   /*
   ==============================
@@ -86,12 +92,6 @@ function Admin() {
       return
     }
 
-    // check new telephone number valid
-    if (!FieldValidator.validateTelephoneNumber(formData.telephoneNumber))  {
-      alert("Telephone number is invalid");
-      return
-    }  
-
     axios
     .put(endpointURL, formData)
     .then((response) => {
@@ -102,6 +102,72 @@ function Admin() {
     .catch((err) => {
       alert("Customer with ID: " + idToUpdate + " does not exist.")
     });
+  }
+
+  async function handleOpenDeleteModal(){
+
+    if(!idToDelete){
+      return
+    }
+
+    // get the user details to be deleted
+    const endpoint = `${SERVER_URL}/customerDetails?id=${idToDelete}`;
+    const response = await axios.get(endpoint).then(response => {
+      if(!response.data){
+        setCustomerDataForDeletion(null);
+        alert("Customer with ID: " + idToDelete + " does not exist.")
+        return
+      }
+
+      setCustomerDataForDeletion(response.data)
+      setOpenConfirmDeleteModal(true)
+    })
+  }
+
+  function handleCloseDeleteModal(deleteConfirmation){
+    if(!deleteConfirmation){
+      setOpenConfirmDeleteModal(false)
+      return
+    }
+
+    callAPIWithAxiosDELETE()
+    setOpenConfirmDeleteModal(false)
+  }
+
+  async function handleOpenUpdateModal(){
+
+    if(!idToUpdate || !telephoneNumber){
+      return
+    }
+
+    // check new telephone number valid
+    if (!FieldValidator.validateTelephoneNumber(telephoneNumber))  {
+      alert("Telephone number is invalid");
+      return
+    }
+
+    // get the user details to be updated
+    const endpoint = `${SERVER_URL}/customerDetails?id=${idToUpdate}`;
+    const response = await axios.get(endpoint).then(response => {
+      if(!response.data){
+        setCustomerDataForUpdate(null);
+        alert("Customer with ID: " + idToUpdate + " does not exist.")
+        return
+      }
+
+      setCustomerDataForUpdate(response.data)
+      setOpenConfirmUpdateModal(true)
+    })
+  }
+
+  function handleCloseUpdateModal(updateConfirmation){
+    if(!updateConfirmation){
+      setOpenConfirmUpdateModal(false)
+      return
+    }
+
+    callAPIWithAxiosPUT()
+    setOpenConfirmUpdateModal(false)
   }
 
   return (
@@ -152,7 +218,7 @@ function Admin() {
             basic
             color="red"
             type="submit"
-            onClick={callAPIWithAxiosDELETE}
+            onClick={() => handleOpenDeleteModal()}
           >
             Delete
           </Button>
@@ -182,13 +248,70 @@ function Admin() {
             basic
             color="yellow"
             type="submit"
-            onClick={callAPIWithAxiosPUT}
+            onClick={() => handleOpenUpdateModal()}
           >
             Update
           </Button>
         </Form.Group>
         </Segment>
       </Form>
+
+      {/* Modals */}
+      {/* DELETE */}
+      <Modal
+          onOpen={() => handleOpenDeleteModal()}
+          open={openConfirmDeleteModal}
+      >
+        <Modal.Content>
+          <Header>Are you sure you want to delete this user? This action can not be undone.</Header>
+          {customerDataForDeletion &&
+          <CustomerDataTable customerData={customerDataForDeletion}/> }
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+              content="No"
+              labelPosition='right'
+              icon='close'
+              onClick={() => handleCloseDeleteModal(false)}
+              negative
+          />
+          <Button
+              content="Yes"
+              labelPosition='right'
+              icon='checkmark'
+              onClick={() => handleCloseDeleteModal(true)}
+              positive
+          />
+        </Modal.Actions>
+      </Modal>
+
+      {/* UPDATE */}
+      <Modal
+          onOpen={() => handleOpenUpdateModal()}
+          open={openConfirmUpdateModal}
+      >
+        <Modal.Content>
+          <Header>Update telephone number</Header>
+          {customerDataForUpdate && telephoneNumber &&
+          <p>Update telephone number from {customerDataForUpdate.telephoneNumber} to {telephoneNumber}?</p> }
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+              content="cancel"
+              labelPosition='right'
+              icon='close'
+              onClick={() => handleCloseUpdateModal(false)}
+              negative
+          />
+          <Button
+              content="Update"
+              labelPosition='right'
+              icon='checkmark'
+              onClick={() => handleCloseUpdateModal(true)}
+              positive
+          />
+        </Modal.Actions>
+      </Modal>
     </div>
   );
 }

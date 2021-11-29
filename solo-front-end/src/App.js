@@ -22,25 +22,27 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Menu size="massive" color="blue" inverted>
-      <Image className="allstate-navbar-logo" src={logo} circular/>
-        <Menu.Item header>Allstate Vehicle Insurance</Menu.Item>
+      <BrowserRouter>
+        <Menu className="fixed" size="massive" color="blue" inverted>
+          <Image className="allstate-navbar-logo" src={logo} circular/>
+          <Menu.Item header>Allstate Vehicle Insurance</Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item name="NEW QUOTE" as={Link} to="/" onClick={() => handleNewQuoteNavSelection()}/>
             <Menu.Item name="ADMIN PANEL" as={Link} to="/admin" onClick={() => handleAdminPanelNavSelection()}/>
           </Menu.Menu>
-      </Menu>
-      <div className="App">
-        <div></div>
-        <div>
-          <Route exact path="/" component={Create} />
+        </Menu>
+        <div className="app-container">
+          <div className="App">
+            <div></div>
+            <div>
+              <Route exact path="/" component={Create} />
+            </div>
+            <div>
+              <Route exact path="/admin" component={Admin} />
+            </div>
+          </div>
         </div>
-        <div>
-          <Route exact path="/admin" component={Admin} />
-        </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
   );
 }
 

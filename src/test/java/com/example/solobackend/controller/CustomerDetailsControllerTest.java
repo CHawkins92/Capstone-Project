@@ -217,9 +217,4 @@ public class CustomerDetailsControllerTest {
 
         assertEquals(expectedErrorMessage, mvcResult.getResponse().getErrorMessage());
     }
-
-    @Test
-    void failingTest(){
-        fail();
-    }
 }

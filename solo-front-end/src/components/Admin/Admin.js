@@ -94,9 +94,9 @@ function Admin() {
         .put(endpointURL, formData)
         .then((response) => {
           if (response.status === 200 && idToGet === idToUpdate) {
-            toast.success(`Telephone number has been updated`)
             callAPIWithAxiosGET(idToGet);
           }
+          toast.success(`Telephone number has been updated`)
         })
         .catch((err) => {
           toast.info(`Customer with ID: ${idToUpdate} does not exist.`)

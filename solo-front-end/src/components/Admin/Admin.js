@@ -43,19 +43,16 @@ function Admin() {
     }
 
     axios
-      .get(endpointURL)
-      .then((response) => {
-        // If no data returned, assume no matching driver
-        if (!response.data) {
+        .get(endpointURL)
+        .then((response) => {
+          if (response.data) {
+            setCustomerData(response.data)
+          }
+        })
+        .catch((err) => {
           setCustomerData(null);
           alert("Customer with ID: " + idToGet + " does not exist.")
-          return
-       }
-       setCustomerData(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        });
   }
 
   function callAPIWithAxiosDELETE() {
@@ -67,16 +64,16 @@ function Admin() {
     }
 
     axios
-      .delete(endpointURL)
-      .then((response) => {
-        if (response.status === 200 && idToGet === idToDelete) {
-          alert("Customer has been deleted successfully");
-          setCustomerData(null);
-        }
-      })
-      .catch((err) => {
-        alert("Customer with ID: " + idToDelete + " does not exist.");
-      });
+        .delete(endpointURL)
+        .then((response) => {
+          if (response.status === 200 && idToGet === idToDelete) {
+            alert("Customer has been deleted successfully");
+            setCustomerData(null);
+          }
+        })
+        .catch((err) => {
+          alert("Customer with ID: " + idToDelete + " does not exist.");
+        });
   }
 
   function callAPIWithAxiosPUT() {
@@ -93,15 +90,15 @@ function Admin() {
     }
 
     axios
-    .put(endpointURL, formData)
-    .then((response) => {
-      if (response.status === 200 && idToGet === idToUpdate) {
-        callAPIWithAxiosGET(idToGet);
-      }
-    })
-    .catch((err) => {
-      alert("Customer with ID: " + idToUpdate + " does not exist.")
-    });
+        .put(endpointURL, formData)
+        .then((response) => {
+          if (response.status === 200 && idToGet === idToUpdate) {
+            callAPIWithAxiosGET(idToGet);
+          }
+        })
+        .catch((err) => {
+          alert("Customer with ID: " + idToUpdate + " does not exist.")
+        });
   }
 
   async function handleOpenDeleteModal(){
@@ -112,16 +109,17 @@ function Admin() {
 
     // get the user details to be deleted
     const endpoint = `${SERVER_URL}/customerDetails?id=${idToDelete}`;
-    const response = await axios.get(endpoint).then(response => {
-      if(!response.data){
-        setCustomerDataForDeletion(null);
-        alert("Customer with ID: " + idToDelete + " does not exist.")
-        return
-      }
-
-      setCustomerDataForDeletion(response.data)
-      setOpenConfirmDeleteModal(true)
-    })
+    const response = await axios.get(endpoint)
+        .then(response => {
+          if(response.data){
+            setCustomerDataForDeletion(response.data)
+            setOpenConfirmDeleteModal(true)
+          }
+        })
+        .catch((err) => {
+          setCustomerDataForDeletion(null);
+          alert("Customer with ID: " + idToDelete + " does not exist.")
+        });
   }
 
   function handleCloseDeleteModal(deleteConfirmation){
@@ -148,16 +146,17 @@ function Admin() {
 
     // get the user details to be updated
     const endpoint = `${SERVER_URL}/customerDetails?id=${idToUpdate}`;
-    const response = await axios.get(endpoint).then(response => {
-      if(!response.data){
-        setCustomerDataForUpdate(null);
-        alert("Customer with ID: " + idToUpdate + " does not exist.")
-        return
-      }
-
-      setCustomerDataForUpdate(response.data)
-      setOpenConfirmUpdateModal(true)
-    })
+    const response = await axios.get(endpoint)
+        .then(response => {
+          if(response.data){
+            setCustomerDataForUpdate(response.data)
+            setOpenConfirmUpdateModal(true)
+          }
+        })
+        .catch((err) => {
+          setCustomerDataForUpdate(null);
+          alert("Customer with ID: " + idToUpdate + " does not exist.")
+        });
   }
 
   function handleCloseUpdateModal(updateConfirmation){

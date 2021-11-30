@@ -15,6 +15,7 @@ import axios from "axios";
 import logo from "../../assets/images/allstate_logo.jpg";
 import * as FieldValidator from "./FormFieldsValidator";
 import SERVER_URL from "../../utils/constants.js";
+import {toast} from "react-toastify";
 
 function Admin() {
   const [idToGet, setIdToGet] = useState(null);
@@ -51,7 +52,7 @@ function Admin() {
         })
         .catch((err) => {
           setCustomerData(null);
-          alert("Customer with ID: " + idToGet + " does not exist.")
+          toast.info(`Customer with ID: ${idToGet} does not exist.`)
         });
   }
 
@@ -67,12 +68,12 @@ function Admin() {
         .delete(endpointURL)
         .then((response) => {
           if (response.status === 200 && idToGet === idToDelete) {
-            alert("Customer has been deleted successfully");
+            toast.success(`Customer with ID: ${idToDelete} deleted successfully.`)
             setCustomerData(null);
           }
         })
         .catch((err) => {
-          alert("Customer with ID: " + idToDelete + " does not exist.");
+          toast.info(`Customer with ID: ${idToDelete} does not exist.`)
         });
   }
 
@@ -93,11 +94,12 @@ function Admin() {
         .put(endpointURL, formData)
         .then((response) => {
           if (response.status === 200 && idToGet === idToUpdate) {
+            toast.success(`Telephone number has been updated`)
             callAPIWithAxiosGET(idToGet);
           }
         })
         .catch((err) => {
-          alert("Customer with ID: " + idToUpdate + " does not exist.")
+          toast.info(`Customer with ID: ${idToUpdate} does not exist.`)
         });
   }
 
@@ -118,7 +120,7 @@ function Admin() {
         })
         .catch((err) => {
           setCustomerDataForDeletion(null);
-          alert("Customer with ID: " + idToDelete + " does not exist.")
+          toast.info(`Customer with ID: ${idToDelete} does not exist.`)
         });
   }
 
@@ -140,7 +142,7 @@ function Admin() {
 
     // check new telephone number valid
     if (!FieldValidator.validateTelephoneNumber(telephoneNumber))  {
-      alert("Telephone number is invalid");
+      toast.warning(`Telephone number is invalid. Must be 11 digits`)
       return
     }
 
@@ -155,7 +157,7 @@ function Admin() {
         })
         .catch((err) => {
           setCustomerDataForUpdate(null);
-          alert("Customer with ID: " + idToUpdate + " does not exist.")
+          toast.info(`Customer with ID: ${idToUpdate} does not exist.`)
         });
   }
 

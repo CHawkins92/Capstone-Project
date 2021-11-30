@@ -5,6 +5,8 @@ import "semantic-ui-css/semantic.min.css";
 import { Menu, Image } from "semantic-ui-react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import logo from "./assets/images/navbar_logo.jpg";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
 
@@ -23,6 +25,17 @@ function App() {
 
   return (
       <BrowserRouter>
+        <ToastContainer
+            position="top-center"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
         <Menu className="fixed" size="massive" color="blue" inverted>
           <Image className="allstate-navbar-logo" src={logo} circular/>
           <Menu.Item header>Allstate Vehicle Insurance</Menu.Item>

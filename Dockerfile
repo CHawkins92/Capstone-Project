@@ -1,7 +1,7 @@
 FROM maven:3.6.3-openjdk-11 AS package
 COPY . /usr/src/mymaven
 WORKDIR /usr/src/mymaven
-RUN mvn -Dmaven.test.skip=true clean package
+RUN mvn -Dmaven.test.skip=false clean package
 
 FROM openjdk:11
 COPY --from=package /usr/src/mymaven/target/solobackend-0.0.1-SNAPSHOT.jar app.jar

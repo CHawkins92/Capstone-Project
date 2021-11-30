@@ -24,6 +24,12 @@ export const validateForm = (fieldsRequiringValidation, fieldErrors) => {
     fieldsRequiringValidation.addDrivers,
     fieldErrors
   );
+
+  fieldErrors = validateVehCurrentValue(
+      fieldsRequiringValidation.vehCurrentValue,
+      fieldErrors
+  );
+
   return fieldErrors;
 };
 
@@ -73,6 +79,19 @@ const validateAdditionalDrivers = (addDrivers, fieldErrors) => {
     fieldErrors.addDrivers.invalid = true;
   } else {
     fieldErrors.addDrivers.invalid = false;
+  }
+
+  return fieldErrors;
+};
+
+const validateVehCurrentValue = (currentValue, fieldErrors) => {
+  var vehCurrentValueRegEx = /[.-]/;
+  let isVehCurrentValueValid = vehCurrentValueRegEx.test(currentValue);
+
+  if (isVehCurrentValueValid || currentValue < 0 || currentValue > 50000) {
+    fieldErrors.vehCurrentValue.invalid = true;
+  } else {
+    fieldErrors.vehCurrentValue.invalid = false;
   }
 
   return fieldErrors;

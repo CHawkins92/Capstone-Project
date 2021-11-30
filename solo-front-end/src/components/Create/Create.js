@@ -418,7 +418,7 @@ function Create() {
           </Form.Group>
           <Form.Group widths="equal">
             <Form.Field>
-              <label>Current value of vehicle?</label>
+              <label>Current value of vehicle? (£0-50000)</label>
               <Form.Input
                 type="number"
                 min="0"
@@ -427,8 +427,10 @@ function Create() {
                 onChange={(e) => setVehCurrentValue(e.target.value)}
                 error={
                   fieldErrors.vehCurrentValue.missing
-                    ? ErrorMsgConstants.CURRENT_VALUE_REQUIRED
-                    : false
+                      ? ErrorMsgConstants.CURRENT_VALUE_REQUIRED
+                      : fieldErrors.vehCurrentValue.invalid
+                      ? ErrorMsgConstants.CURRENT_VALUE_INVALID
+                      : false
                 }
               />
             </Form.Field>

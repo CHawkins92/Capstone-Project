@@ -22,3 +22,5 @@ export const DATE_REGISTERED_INVALID =
   "Date of Registration can not be a future date";
 export const ADDITIONAL_DRIVERS_INVALID =
   "Please enter a value in range 0-5";
+export const CURRENT_VALUE_INVALID =
+    "Please enter a value in range £0-50000";

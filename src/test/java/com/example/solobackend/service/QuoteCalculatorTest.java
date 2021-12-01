@@ -55,30 +55,57 @@ public class QuoteCalculatorTest {
         assertEquals(1.0, QuoteCalculator.calculateOutsideStateUseFactor("No"), 0.0);
     }
 
-//    @Test
-//    public void testCalculateInsurcanceQuote() {
-//
-//        // setup driver
-//        String firstName = "Conor";
-//        String lastName = "Hawkins";
-//        Long id = 1L;
-//        String prefix = "Mr";
-//        String telNumber = "12345678910";
-//        String address1 = "123";
-//        String address2 = "Something Road";
-//        String city = "Belfast";
-//        String postCode = "BT12 7AG";
-//        String carType = "Hatchback";
-//        String engineSize = "2000";
-//        String additionalDrivers = "1";
-//        String commercialPurposes = "No";
-//        String outsideState = "Yes";
-//        String vehicleValue = "5000";
-//        String dateRegistered = "10-02-2021";
-//        CustomerDetails customer = new CustomerDetails(id, prefix, firstName, lastName, telNumber, address1,
-//                address2, city, postCode, carType, engineSize, additionalDrivers,
-//                commercialPurposes, outsideState, vehicleValue, dateRegistered);
-//
-//        assertEquals(0.0, Double.valueOf(QuoteCalculator.calculateInsuranceQuote(customer)), 0.1);
-//    }
+    @Test
+    public void testCalculateInsurcanceQuoteScenario1() {
+
+        // setup driver
+        String firstName = "Conor";
+        String lastName = "Hawkins";
+        Long id = 1L;
+        String prefix = "Mr";
+        String telNumber = "12345678910";
+        String address1 = "123";
+        String address2 = "Something Road";
+        String city = "Belfast";
+        String postCode = "BT12 7AG";
+        String carType = "Hatchback";
+        String engineSize = "1600";
+        String additionalDrivers = "2";
+        String commercialPurposes = "Yes";
+        String outsideState = "Yes";
+        String vehicleValue = "5000";
+        String dateRegistered = "10-02-2021";
+        CustomerDetails customer = new CustomerDetails(id, prefix, firstName, lastName, telNumber, address1,
+                address2, city, postCode, carType, engineSize, additionalDrivers,
+                commercialPurposes, outsideState, vehicleValue, dateRegistered);
+
+        assertEquals(371.71, Double.valueOf(QuoteCalculator.calculateInsuranceQuote(customer)), 0.1);
+    }
+
+    @Test
+    public void testCalculateInsurcanceQuoteScenario2() {
+
+        // setup driver
+        String firstName = "Conor";
+        String lastName = "Hawkins";
+        Long id = 1L;
+        String prefix = "Mr";
+        String telNumber = "12345678910";
+        String address1 = "123";
+        String address2 = "Something Road";
+        String city = "Belfast";
+        String postCode = "BT12 7AG";
+        String carType = "Cabriolet";
+        String engineSize = "3000";
+        String additionalDrivers = "0";
+        String commercialPurposes = "No";
+        String outsideState = "No";
+        String vehicleValue = "15000";
+        String dateRegistered = "10-02-2021";
+        CustomerDetails customer = new CustomerDetails(id, prefix, firstName, lastName, telNumber, address1,
+                address2, city, postCode, carType, engineSize, additionalDrivers,
+                commercialPurposes, outsideState, vehicleValue, dateRegistered);
+
+        assertEquals(514.80, Double.valueOf(QuoteCalculator.calculateInsuranceQuote(customer)), 0.1);
+    }
 }

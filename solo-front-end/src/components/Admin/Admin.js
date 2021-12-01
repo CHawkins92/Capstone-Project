@@ -13,7 +13,7 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import logo from "../../assets/images/allstate_logo.jpg";
-import * as FieldValidator from "./FormFieldsValidator";
+import * as FieldValidator from "./formFieldsValidator";
 import SERVER_URL from "../../utils/constants.js";
 import {toast} from "react-toastify";
 
@@ -35,7 +35,6 @@ function Admin() {
   ==============================
   */
   function callAPIWithAxiosGET(idToGet) {
-    //const endpointURL = "http://localhost:8080/customerDetails?id=" + idToGet;
     const endpointURL = `${SERVER_URL}/customerDetails?id=${idToGet}`;
 
     if(!idToGet){
@@ -57,7 +56,6 @@ function Admin() {
   }
 
   function callAPIWithAxiosDELETE() {
-    //const endpointURL = "http://localhost:8080/customerDetails?id=" + idToDelete;
     const endpointURL = `${SERVER_URL}/customerDetails?id=${idToDelete}`;
 
     if(!idToDelete){
@@ -82,8 +80,6 @@ function Admin() {
       telephoneNumber,
     };
 
-    //const endpointURL = "http://localhost:8080/customerDetails?id=" + idToUpdate +
-    //                    "&newTelephoneNumber=" + telephoneNumber;
     const endpointURL = `${SERVER_URL}/customerDetails?id=${idToUpdate}&newTelephoneNumber=${telephoneNumber}`;
 
     if(!idToUpdate){
@@ -103,6 +99,11 @@ function Admin() {
         });
   }
 
+    /*
+  ==============================
+   Handler functions for modals
+  ==============================
+  */
   async function handleOpenDeleteModal(){
 
     if(!idToDelete){
@@ -171,6 +172,11 @@ function Admin() {
     setOpenConfirmUpdateModal(false)
   }
 
+    /*
+  ==============================
+   RETURN
+  ==============================
+  */
   return (
     <div>
       <Form>
@@ -258,6 +264,7 @@ function Admin() {
       </Form>
 
       {/* Modals */}
+
       {/* DELETE */}
       <Modal
           onOpen={() => handleOpenDeleteModal()}

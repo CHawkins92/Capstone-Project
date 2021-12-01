@@ -11,9 +11,9 @@ import {
   Modal
 } from "semantic-ui-react";
 import axios from "axios";
-import * as ErrorMsgConstants from "./ErrorMessages.js";
-import * as DropDownOptions from "./DropdownOptions";
-import * as FieldValidator from "./FormFieldsValidator";
+import * as ErrorMsgConstants from "./errorMessages.js";
+import * as DropDownOptions from "./dropdownOptions";
+import * as FieldValidator from "./formFieldsValidator";
 import logo from "../../assets/images/allstate_logo.jpg";
 import SERVER_URL from "../../utils/constants.js";
 
@@ -159,7 +159,6 @@ function Create() {
       vehDateRegistered,
     };
 
-    //const endpointURL = "http://localhost:8080/customerDetails";
     const endpointURL = `${SERVER_URL}/customerDetails`;
 
     axios
@@ -183,8 +182,6 @@ function Create() {
       ...FieldValidator.validateForm(fieldsRequiringValidation, fieldErrors),
     });
 
-    console.log(fieldErrors)
-
     let errFlag = false;
 
     // Check if any fields contain errors
@@ -200,9 +197,8 @@ function Create() {
     }
 
     if (errFlag) {
-      console.log("Errors present");
+        toast.warning(`Telephone number is invalid. Must be 11 digits`)
     } else {
-      console.log("no errors");
       callAPIWithAxiosPOST();
     }
   };
@@ -228,7 +224,11 @@ function Create() {
     window.location.reload()
   }
 
-
+/*
+==============================
+ RETURN
+==============================
+*/
   return (
     <div>
       <Form>
@@ -464,7 +464,7 @@ function Create() {
       >
         <Modal.Content>
           <Header>Hi, {firstName} {lastName}!</Header>
-          <p>Buy you insurance with us for £{quoteAmount}</p>
+          <p>Buy your insurance with us for £{quoteAmount}!</p>
         </Modal.Content>
         <Modal.Actions>
           <Button color='black' onClick={() => handleCloseModal()}>

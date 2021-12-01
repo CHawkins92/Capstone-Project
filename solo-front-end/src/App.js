@@ -36,7 +36,7 @@ function App() {
             draggable
             pauseOnHover
         />
-        <Menu className="fixed" size="massive" color="blue" inverted>
+        <Menu className="fixed" size="massive" color="blue" inverted stackable>
           <Image className="allstate-navbar-logo" src={logo} circular/>
           <Menu.Item header>Allstate Vehicle Insurance</Menu.Item>
           <Menu.Menu position="right">

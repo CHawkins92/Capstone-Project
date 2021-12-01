@@ -16,6 +16,7 @@ import * as DropDownOptions from "./dropdownOptions";
 import * as FieldValidator from "./formFieldsValidator";
 import logo from "../../assets/images/allstate_logo.jpg";
 import SERVER_URL from "../../utils/constants.js";
+import {toast} from "react-toastify";
 
 function Create() {
   // Properties mapping to form fields
@@ -197,7 +198,7 @@ function Create() {
     }
 
     if (errFlag) {
-        toast.warning(`Telephone number is invalid. Must be 11 digits`)
+        toast.warning(`Please address errors and try again`)
     } else {
       callAPIWithAxiosPOST();
     }

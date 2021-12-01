@@ -75,7 +75,7 @@ const validateAdditionalDrivers = (addDrivers, fieldErrors) => {
   var additionalDriversRegEx = /[.-]/;
   let isAdditionalDriversValid = additionalDriversRegEx.test(addDrivers);
 
-  if (isAdditionalDriversValid || addDrivers < 0 || addDrivers > 5) {
+  if (isAdditionalDriversValid || addDrivers < 0 || addDrivers > 4) {
     fieldErrors.addDrivers.invalid = true;
   } else {
     fieldErrors.addDrivers.invalid = false;

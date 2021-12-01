@@ -381,11 +381,11 @@ function Create() {
             </Form.Field>
           </Form.Group>
           <Form.Field>
-            <label>Additional Drivers</label>
+            <label>Additional Drivers (0-4)</label>
             <Form.Input
               type="number"
               min="0"
-              max="5"
+              max="4"
               placeholder="Additional Drivers"
               onChange={(e) => setAddDrivers(e.target.value)}
               error={
@@ -465,12 +465,16 @@ function Create() {
       >
         <Modal.Content>
           <Header>Hi, {firstName} {lastName}!</Header>
-          <p>Buy your insurance with us for £{quoteAmount}!</p>
+          <p>Buy your insurance with us for <strong>£{quoteAmount}</strong>!</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='black' onClick={() => handleCloseModal()}>
-            No thanks
-          </Button>
+          <Button
+              content="Not right now"
+              labelPosition='right'
+              icon='close'
+              onClick={() => handleCloseModal()}
+              negative
+          />
           <Button
               content="Buy insurance"
               labelPosition='right'
